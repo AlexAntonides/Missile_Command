@@ -5,7 +5,7 @@ package objects
 	 * ...
 	 * @author Alex Antonides
 	 */
-	public class Village extends Sprite
+	public class Village extends pObject
 	{
 		private var village_Asset:Object_Village;
 		public function Village() 

@@ -6,10 +6,10 @@ package objects
 	 * ...
 	 * @author Alex Antonides
 	 */
-	public class Object extends Sprite 
+	public class pObject extends Sprite 
 	{
 		
-		public function Object() 
+		public function pObject() 
 		{
 			
 		}

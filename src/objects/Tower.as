@@ -8,13 +8,14 @@ package objects
 	 * ...
 	 * @author Alex Antonides
 	 */
-	public class Tower extends Sprite
+	public class Tower extends pObject
 	{
-		public var ammo : int = 15;  
-		private var maxAmmo : int = 30;
-		private var mousePosition : Vector2D = new Vector2D();
+		public var towerAmmo : int = 15;  
 		
+		private var towerMaxAmmo : int = 30;
+		private var mousePosition : Vector2D = new Vector2D();
 		private var tower_Asset:Object_Tower;
+		
 		public function Tower() 
 		{
 			tower_Asset = new Object_Tower();

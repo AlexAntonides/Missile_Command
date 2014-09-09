@@ -6,12 +6,8 @@ package objects
 	 * ...
 	 * @author Alex Antonides
 	 */
-	public class Rocket extends Sprite
+	public class Rocket extends pObject
 	{
-		public var rocketMovement : Point = new Point();
-		public var rocketDestination : Number;
-		public var rocketSpeed : Number = 10; 
-			
 		private var rocket_Asset:Object_Rocket;
 	
 		public function Rocket() 

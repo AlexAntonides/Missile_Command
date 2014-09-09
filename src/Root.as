@@ -14,6 +14,7 @@ package
 		private var screen_Game:GameScreen;
 		private var screen_Menu:MenuScreen;
 		private var _screen:Screen;
+		
 		public function Root() 
 		{
 			if (stage) init();
