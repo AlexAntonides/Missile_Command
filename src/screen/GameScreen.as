@@ -14,8 +14,6 @@ package screen
 	{
 		static public const END_GAME:String = "endGame";
 		
-		private var mousePosition : Vector2D = new Vector2D();
-		
 		private var object_Rockets:Array	= [];
 		private var object_Towers:Array 	= [];
 		private var object_Villages:Array 	= [];
@@ -23,7 +21,8 @@ package screen
 		private var totalVillages:int = 4;
 		private var totalTowers:int = 3;
 		
-		private var rocketSpeed:int = 7;
+		private var rocketSpeed:int = 15;
+		private var locationMouse:int;
 		
 		public function GameScreen() 
 		{
@@ -84,6 +83,7 @@ package screen
 				object_Rocket.y = object_Towers[counter].y;
 				
 				object_Rocket.rotation = object_Towers[counter].rotation;
+				locationMouse = mouseY;
 				
 				object_Rockets.push(object_Rocket);
 				addChildAt(object_Rocket,0);
@@ -93,17 +93,27 @@ package screen
 		
 		private function repeat(e:Event):void 
 		{
+			checkRocket();
+		}
+		
+		private function checkRocket():void 
+		{
 			var lengthRockets:int = object_Rockets.length;
-				
-			for (var t : int = 0; t < lengthRockets; t++) 
+			
+			for (var t : int = 0; t < lengthRockets; t++)
 			{
-				var angle:Number = object_Rockets[t].rotation,
-					radion:Number = angle / (180 / Math.PI),
-					moveX:Number = Math.cos (radion) * rocketSpeed,
-					moveY:Number = Math.sin (radion) * rocketSpeed;
-				
-				object_Rockets[t].x += moveX;
-				object_Rockets[t].y += moveY;
+				if (object_Rockets[t] != null)
+				{
+					var angle:Number = object_Rockets[t].rotation,
+						radion:Number = angle / (180 / Math.PI),
+						moveX:Number = Math.cos (radion) * rocketSpeed,
+						moveY:Number = Math.sin (radion) * rocketSpeed;
+					
+					object_Rockets[t].x += moveX;
+					object_Rockets[t].y += moveY;
+					
+					object_Rockets[t].checkPosition(object_Rockets, object_Rockets[t], locationMouse);
+				}
 			}
 		}
 		
