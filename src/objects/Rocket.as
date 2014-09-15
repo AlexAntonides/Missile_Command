@@ -1,8 +1,8 @@
 package objects 
 {
+	import effects.Explosion;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.geom.Point;
 	/**
 	 * ...
 	 * @author Alex Antonides
@@ -24,17 +24,6 @@ package objects
 			// Entry Point
 			
 		}
-		
-		public function checkPosition(_rockets:Array, _rocket:Rocket, mouseLocation:int):void 
-		{
-			if (_rocket.y <= mouseLocation)
-			{
-				parent.removeChild(_rocket);
-				_rockets.splice(_rocket, 1);
-			}
-		}
-		
-		
 		
 	}
 

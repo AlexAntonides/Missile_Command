@@ -1,5 +1,6 @@
 package screen 
 {
+	import effects.Explosion;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import utils.Vector2D;
@@ -18,11 +19,15 @@ package screen
 		private var object_Towers:Array 	= [];
 		private var object_Villages:Array 	= [];
 		
+		public static var effect_Explosions:Array = [];
+		
 		private var totalVillages:int = 4;
 		private var totalTowers:int = 3;
 		
 		private var rocketSpeed:int = 15;
 		private var locationMouse:int;
+		
+		private var maxSize:Boolean = false;
 		
 		public function GameScreen() 
 		{
@@ -99,6 +104,7 @@ package screen
 		private function checkRocket():void 
 		{
 			var lengthRockets:int = object_Rockets.length;
+			var lengthExplosions:int = effect_Explosions.length;
 			
 			for (var t : int = 0; t < lengthRockets; t++)
 			{
@@ -112,8 +118,53 @@ package screen
 					object_Rockets[t].x += moveX;
 					object_Rockets[t].y += moveY;
 					
-					object_Rockets[t].checkPosition(object_Rockets, object_Rockets[t], locationMouse);
+					checkPosition(object_Rockets, object_Rockets[t], locationMouse);
 				}
+			}
+			
+			for (var m : int = 0; m < lengthExplosions; m++)
+			{
+				var growSpeed:Number = 0.3;
+				
+				//Perfecte idee van Ramses; Boolean. Kan je hier niet cases voor gebruiken?
+				if (maxSize == false)
+				{
+					effect_Explosions[m].scaleX += growSpeed;
+					effect_Explosions[m].scaleY += growSpeed;
+				}
+				else
+				{
+					effect_Explosions[m].scaleX -= growSpeed;
+					effect_Explosions[m].scaleY -= growSpeed;
+				}
+				
+				if (effect_Explosions[m].scaleX > 3)
+				{
+					maxSize = true;
+				}
+				
+				if (effect_Explosions[m].scaleX < 0)
+				{
+					maxSize = false;
+					removeChild(effect_Explosions[m]);
+					effect_Explosions.splice(m, 1);
+				}
+			}
+		}
+		
+		private function checkPosition(_rockets:Array, _rocket:Rocket, mouseLocation:int):void
+		{
+			if (_rocket.y <= mouseLocation)
+			{	
+				var explosion : Explosion = new Explosion();
+			
+				explosion.x = _rocket.x;
+				explosion.y = _rocket.y;
+				effect_Explosions.push(explosion);
+				addChild(explosion);
+					
+				_rocket.parent.removeChild(_rocket);
+				_rockets.splice(_rocket, 1);
 			}
 		}
 		
