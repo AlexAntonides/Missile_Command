@@ -40,7 +40,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Alex Antonides\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Development\Missile-Command\src\factory\Main.as</path-element>
+    <path-element>C:\Users\Alex Antonides\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Development\Missile-Command\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

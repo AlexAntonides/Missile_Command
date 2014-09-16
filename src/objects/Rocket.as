@@ -15,7 +15,8 @@ package objects
 		{
 			rocket_Asset = new Object_Rocket();
 			addChild(rocket_Asset);
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		private function init(e:Event = null):void 
