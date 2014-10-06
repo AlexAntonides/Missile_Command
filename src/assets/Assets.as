@@ -1,28 +1,50 @@
 package assets 
 {
-	import flash.display.Sprite;
-	import objects.pObject;
+	import objects.EnemyRocket;
+	import objects.Explosion;
+	import objects.gObject;
 	import objects.Rocket;
+	import objects.Tower;
 	/**
 	 * ...
 	 * @author Alex Antonides
 	 */
 	public class Assets 
 	{
-		public static const OBJECT_ROCKET : String		=	"object_rocket";
-		
-		public static function InstantiateSprite( type : String ) : pObject 
+		public static const ASSET_TOWER	 	: String	 = "asset_tower";
+		public static const ASSET_ROCKET 	: String  	 = "asset_rocket"; 
+		public static const ASSET_EXPLOSION : String	 = "asset_explosion";
+		public static const ASSET_EROCKET 	: String 	 = "asset_erocket";
+ 		
+		public static function InstantiateSprite( type : String ) : gObject
 		{
-			// lokale variabele waar de het nieuwe ruimteschip in opslaan
-			var enemy : pObject;
+			var object : gObject;
 			
-			if(type == OBJECT_ROCKET)
+			if (type == ASSET_TOWER)
 			{
-				enemy = new Rocket();
+				object = new Tower();
+			}
+			else if (type == ASSET_ROCKET)
+			{
+				object = new Rocket();
+			}
+			else if (type == ASSET_EXPLOSION)
+			{
+				object = new Explosion();
+			}
+			else if (type == ASSET_EROCKET)
+			{
+				object = new EnemyRocket();
+			}
+			else
+			{
+				throw new Error("Invalid type specified in Assets class.");
+				return null;
 			}
 			
-			return enemy;
+			return object;
 		}
+		
 	}
 
 }

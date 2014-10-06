@@ -1,43 +1,46 @@
 package objects 
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import utils.Vector2D;
+	import flash.events.Event;
+	import objects.gObject;
+	import assets.Assets;
+	import objects.Rocket;
 	/**
 	 * ...
 	 * @author Alex Antonides
 	 */
-	public class Tower extends pObject
+	public class Tower extends gObject
 	{
-		public var towerAmmo : int = 15;  
+		public var ammo : int = 30;
 		
-		private var towerMaxAmmo : int = 30;
-		private var mousePosition : Vector2D = new Vector2D();
-		private var tower_Asset:Object_Tower;
-		
+		private var _maxAmmo : int = 30;
+		private var _mousePos : Vector2D = new Vector2D();
 		public function Tower() 
 		{
-			tower_Asset = new Object_Tower();
-			addChild(tower_Asset);
-			
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+			if (stage) 
+				init();
+			else 
+				addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
+			
+			graphics.beginFill(0x000000, 1);
+			graphics.drawRect(0, -5, 30, 10);
+			graphics.endFill();
+			
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, moveTurret);
 		}
 		
 		private function moveTurret(e:MouseEvent):void 
 		{
 			this.rotation = 0;
-			mousePosition.x = this.mouseX;
-			mousePosition.y = this.mouseY;
-			this.rotation = mousePosition.angle * 180 / Math.PI;
+			_mousePos.x = this.mouseX;
+			_mousePos.y = this.mouseY;
+			this.rotation = _mousePos.angle * 180 / Math.PI;
 		}
 		
 	}

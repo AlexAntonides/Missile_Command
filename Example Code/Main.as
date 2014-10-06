@@ -9,20 +9,20 @@ package
 	 */
 	public class Main extends Sprite 
 	{
+		private var _root:Root;
 		
 		public function Main():void 
 		{
-			if (stage) 
-				init();
-			else 
-				addEventListener(Event.ADDED_TO_STAGE, init);
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			// entry point
 			
-			var _root:Root = new Root();
+			_root = new Root();
 			addChild(_root);
 		}
 		

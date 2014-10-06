@@ -21,15 +21,14 @@ package screen
 		private var object_Towers:Array 	= [];
 		private var object_Villages:Array 	= [];
 		
-		public static var effect_Explosions:Array = [];
+		private var effect_Explosions:Array = [];
+		public static var removeExplosion:Boolean = false; 
 		
 		private var totalVillages:int = 4;
 		private var totalTowers:int = 3;
 		
 		private var rocketSpeed:int = 15;
 		private var locationMouse:int;
-		
-		private var maxSize:Boolean = false;
 		
 		public function GameScreen() 
 		{
@@ -61,7 +60,39 @@ package screen
 		
 		private function shootTurret(e:MouseEvent):void
 		{
-			// Even opnieuw maken omdat het soms crashes veroorzaakt
+			var counter : int,
+				closestTower : Number,
+				towersLength : Number,
+				object_Rocket : pObject = Assets.InstantiateSprite(Assets.OBJECT_ROCKET);
+				
+			closestTower = new Number(Number.MAX_VALUE);
+			towersLength = object_Towers.length;
+						
+			for (var k : int = 0; k < towersLength; k++) 
+			{
+				if ((object_Towers[k].mouseX + object_Towers[k].mouseY) < closestTower) 
+				{
+					counter = k;
+					closestTower = (object_Towers[k].mouseX + object_Towers[k].mouseY);
+				}
+			}
+			
+			if (object_Towers[counter].towerAmmo > 0)
+			{
+				var xPos:Number = Math.cos(object_Rocket.rotation / 180 * Math.PI),
+					yPos:Number = Math.sin(object_Rocket.rotation / 180 * Math.PI);
+					
+				object_Towers[counter].towerAmmo -= 1;
+				
+				object_Rocket.x = object_Towers[counter].x;
+				object_Rocket.y = object_Towers[counter].y;
+				
+				object_Rocket.rotation = object_Towers[counter].rotation;
+				locationMouse = mouseY;
+				
+				object_Rockets.push(object_Rocket);
+				addChildAt(object_Rocket,0);
+			}
 		}
 		
 		private function repeat(e:Event):void 
@@ -90,33 +121,16 @@ package screen
 				}
 			}
 			
-			for (var m : int = 0; m < lengthExplosions; m++)
+			for (var i:  int = 0; i < lengthExplosions; i++)
 			{
-				var growSpeed:Number = 0.3;
-				
-				//Perfecte idee van Ramses; Boolean. Kan je hier niet cases voor gebruiken?
-				
-				if (maxSize == false)
+				if (removeExplosion)
 				{
-					effect_Explosions[m].scaleX += growSpeed;
-					effect_Explosions[m].scaleY += growSpeed;
-				}
-				else
-				{
-					effect_Explosions[m].scaleX -= growSpeed;
-					effect_Explosions[m].scaleY -= growSpeed;
-				}
-				
-				if (effect_Explosions[m].scaleX > 3)
-				{
-					maxSize = true;
-				}
-				
-				if (effect_Explosions[m].scaleX < 0)
-				{
-					maxSize = false;
-					removeChild(effect_Explosions[m]);
-					effect_Explosions.splice(m, 1);
+					removeExplosion = false;
+					if (effect_Explosions[i] != null)
+					{	
+						effect_Explosions[i].parent.removeChild(effect_Explosions[i]);
+						effect_Explosions.splice(effect_Explosions.indexOf(effect_Explosions[i], 1));
+					}
 				}
 			}
 		}
@@ -126,14 +140,17 @@ package screen
 			if (_rocket.y <= mouseLocation)
 			{	
 				var explosion : Explosion = new Explosion();
-			
+					
 				explosion.x = _rocket.x;
 				explosion.y = _rocket.y;
 				effect_Explosions.push(explosion);
 				addChild(explosion);
-					
-				_rocket.parent.removeChild(_rocket);
-				_rockets.splice(_rocket, 1);
+				
+				if (_rocket != null)
+				{		
+					_rocket.parent.removeChild(_rocket);
+					_rockets.splice(_rocket, 1);
+				}
 			}
 		}
 		
