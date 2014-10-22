@@ -32,12 +32,12 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Alex\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Programming\Berend Weij\Missile Command (Fix)\src</path-element>
+      <path-element>C:\Users\Alex\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Programming\Berend Weij\Missile Command\src</path-element>
       <path-element>C:\Program Files (x64)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Alex\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Programming\Berend Weij\Missile Command (Fix)\src\Main.as</path-element>
+    <path-element>C:\Users\Alex\School\MediaCollege Amsterdam\Leerjaar 2\Periode 1\Game Programming\Berend Weij\Missile Command\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
